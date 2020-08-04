@@ -10,11 +10,27 @@
     "Other"
   ],
   "activationEvents": [
-    "*"
+    "onLanguage:gisdk"
   ],
   "main": "./out/extension.js",
   "contributes": {
     "commands": [
+      {
+        "command": "vscode-gisdk.selectCompiler",
+        "title": "GISDK: Select Compiler"
+      }
+    ],
+    "languages": [
+      {
+        "id": "gisdk",
+        "aliases": ["GISDK"],
+        "filenames": [
+          ".rsc",
+          ".gisdk",
+          ".model",
+          ".scenarios"
+        ]
+      }
     ],
     "problemMatchers": [
       {
@@ -35,6 +51,10 @@
           "args"
         ],
         "properties": {
+          "compilerPath": {
+            "type": "string",
+            "description": "You can set this property to path of rscc if you want to compile with custom rscc."
+          },
           "args": {
             "type": "array",
             "description": "The arguments passed to rscc."
