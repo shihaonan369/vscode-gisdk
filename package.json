@@ -6,6 +6,10 @@
   "engines": {
     "vscode": "^1.47.0"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/shihaonan369/vscode-gisdk.git"
+  },
   "publisher": "shihaonan369",
   "PAT": "zkvupjb2jaxjwt4mafbj2skglm225pi54irprerpy2tryfpah2zq",
   "categories": [
