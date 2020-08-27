@@ -13,7 +13,7 @@ export async function activate(context: vscode.ExtensionContext) {
 
 	// Get the path of all compiler installed in system.
 	const utils = require('./utils.js');
-	const compilers : string[] = await utils.getCompilersPath();
+	const compilers: string[] = await utils.getCompilersPath();
 
 	// Create a select bar to select which rscc compiler will be used.
 	let rsccSelectBar = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Left, 11);
@@ -29,7 +29,7 @@ export async function activate(context: vscode.ExtensionContext) {
 	} else {
 		rsccSelectBar.text = '$(codicon-settings)' + 'There\'s no rscc installed.';
 	}
-	
+
 	vscode.window.activeTextEditor?.document.languageId !== 'gisdk' || rsccSelectBar.show();
 	context.subscriptions.push(vscode.window.onDidChangeActiveTextEditor((e) => {
 		if (e?.document.languageId === 'gisdk') {
@@ -47,7 +47,7 @@ export async function activate(context: vscode.ExtensionContext) {
 			}
 		});
 	}));
-	
+
 
 	context.subscriptions.push(vscode.tasks.registerTaskProvider("rscc", {
 		async provideTasks() {
@@ -63,6 +63,7 @@ export async function activate(context: vscode.ExtensionContext) {
 				return undefined;
 			}
 
+			// check if this file is supported.
 			let extName = path.extname(file);
 			if (extName.match(/\.rsc|\.gisdk|\.model|\.scenarios/g)?.length === 0) {
 				return undefined;
@@ -88,9 +89,7 @@ export async function activate(context: vscode.ExtensionContext) {
 			}
 		},
 		async resolveTask(_task: vscode.Task) {
-			// get path of compiler from registry
-			const utils = require('./utils.js');
-			let compilerPath = context.globalState.get<string>('compilerPath') ?? _task.definition.compilerPath;
+			let compilerPath = _task.definition.compilerPath ? _task.definition.compilerPath : context.globalState.get<string>('compilerPath');
 
 			let defaultShell = vscode.workspace.getConfiguration('terminal').get<string>('integrated.shell.windows');
 			let len = defaultShell?.match(/powershell\.exe/)?.length;
@@ -101,17 +100,6 @@ export async function activate(context: vscode.ExtensionContext) {
 			}
 		}
 	}));
-	context.subscriptions.push(vscode.debug.registerDebugConfigurationProvider('gisdk', {
-		provideDebugConfigurations(folder: vscode.WorkspaceFolder | undefined): vscode.ProviderResult<vscode.DebugConfiguration[]> {
-			return [
-				{
-					type: 'gisdk',
-					name: 'Launch',
-					request: 'launch'
-				}
-			];
-		}
-	}, vscode.DebugConfigurationProviderTriggerKind.Dynamic));
 }
 
 // this method is called when your extension is deactivated

@@ -2,15 +2,21 @@
   "name": "vscode-gisdk",
   "displayName": "GISDK",
   "description": "",
-  "version": "0.0.1",
+  "version": "1.0.1",
   "engines": {
     "vscode": "^1.47.0"
   },
+  "publisher": "shihaonan369",
+  "PAT": "zkvupjb2jaxjwt4mafbj2skglm225pi54irprerpy2tryfpah2zq",
   "categories": [
     "Other"
   ],
   "activationEvents": [
-    "onLanguage:gisdk"
+    "onLanguage:gisdk",
+    "workspaceContains:**/*.rsc",
+    "workspaceContains:**/*.gisdk",
+    "workspaceContains:**/*.model",
+    "workspaceContains:**/*.scenarios"
   ],
   "main": "./out/extension.js",
   "contributes": {
@@ -24,7 +30,7 @@
       {
         "id": "gisdk",
         "aliases": ["GISDK"],
-        "filenames": [
+        "extensions": [
           ".rsc",
           ".gisdk",
           ".model",
@@ -62,43 +68,7 @@
         }
       }
     ],
-    "debuggers": [
-      {
-        "type": "gisdk",
-        "label": "GISDK",
-        "program": "./output/gisdkDebug.js",
-        "runtime": "tc",
-        "configurationAttributes": {
-          "launch": {
-            "required": [
-              "program"
-            ],
-            "properties": {
-              "program": {
-                "type": "string",
-                "description": "*.dbd"
-              },
-              "cwd": {
-                "type": "string",
-                "description": "Workspace relative or absolute path to the working directory of the program being debugged. Default is the current workspace."
-              },
-              "args": {
-                "type": "string",
-                "description": "Arguments for launch program."
-              }
-            }
-          }
-        },
-        "initialConfigurations": [
-          {
-            "name": "launch",
-            "type": "gisdk",
-            "program": "${file}",
-            "cwd": "${workspaceFolder}"
-          }
-        ]
-      }
-    ]
+    "debuggers": []
   },
   "scripts": {
     "vscode:prepublish": "npm run compile",

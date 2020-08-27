@@ -1,35 +1,22 @@
 # vscode-gisdk README
 
-This is the README for your extension "vscode-gisdk". After writing up a brief description, we recommend including the following sections.
+This is an extension for gisdk which is a language designed by Calliper.
 
 ## Features
 
-Describe specific features of your extension including screenshots of your extension in action. Image paths are relative to this README file.
-
-For example if there is an image subfolder under your extension project workspace:
-
-\!\[feature X\]\(images/feature-x.png\)
-
-> Tip: Many popular extensions utilize animations. This is an excellent way to show off your extension! We recommend short, focused animations that are easy to follow.
+- Compile .rsc, .model, .lst, .scenarios files.
+- Show compile perblems.
 
 ## Requirements
 
-If you have any requirements or dependencies, add a section describing those and how to install and configure them.
+Please provide your rscc compiler by creating a rscc task and set compilerPath to location of compiler if you have not install any of softwares from Caliper.
 
 ## Extension Settings
 
-Include if your extension adds any VS Code settings through the `contributes.configuration` extension point.
-
-For example:
-
-This extension contributes the following settings:
-
-* `myExtension.enable`: enable/disable this extension
-* `myExtension.thing`: set to `blah` to do something
 
 ## Known Issues
 
-Calling out known issues can help limit users opening duplicate issues against your extension.
+- The compiler quick pick is not auto focus on current compiler now.
 
 ## Release Notes
 
@@ -37,29 +24,46 @@ Users appreciate release notes as you update your extension.
 
 ### 1.0.0
 
-Initial release of ...
+1. Provide a compiler selection bar.
+2. Provide a built-in task to compiler active file.
+3. Provide a rscc task type allow you to custom your build.
 
 ### 1.0.1
 
-Fixed issue #.
-
-### 1.1.0
-
-Added features X, Y, and Z.
+1. Fix a bug that cause task warning if there's no gisdk file opend.
 
 -----------------------------------------------------------------------------------------------------------
 
-## Working with Markdown
+## Working with GISDK
 
-**Note:** You can author your README using Visual Studio Code.  Here are some useful editor keyboard shortcuts:
+* Select Compiler: Click GISDK(...) on statu bar.
+* Compile This File: Active a supported file suck as .rsc, `CTRL + SHIFT + P` then select `Tasks: Run Task` -> rscc -> rscc: compile this file.
+* Custom Compile:
+    ```
+    // tasks.json
+    {
+        // See https://go.microsoft.com/fwlink/?LinkId=733558
+        // for the documentation about the tasks.json format
+        "version": "2.0.0",
+        "tasks": [
+            {
+                "type": "rscc",
+                "group": "build",
+                "label": "compile",
+                "args": [
+                    "-c",
+                    "-u",
+                    "output/test.dbd",
+                    "src/test.lst"
+                ]
+            }
+        ]
+    }
+    ```
 
-* Split the editor (`Cmd+\` on macOS or `Ctrl+\` on Windows and Linux)
-* Toggle preview (`Shift+CMD+V` on macOS or `Shift+Ctrl+V` on Windows and Linux)
-* Press `Ctrl+Space` (Windows, Linux) or `Cmd+Space` (macOS) to see a list of Markdown snippets
 
 ### For more information
 
-* [Visual Studio Code's Markdown Support](http://code.visualstudio.com/docs/languages/markdown)
-* [Markdown Syntax Reference](https://help.github.com/articles/markdown-basics/)
+* [GISDK Online Help](https://www.caliper.com/)
 
 **Enjoy!**
