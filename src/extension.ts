@@ -82,7 +82,7 @@ export async function activate(context: vscode.ExtensionContext) {
 
 			let defaultShell = vscode.workspace.getConfiguration('terminal').get<string>('integrated.shell.windows');
 			let len = defaultShell?.match(/powershell\.exe/)?.length;
-			if (len && len > 0) {
+			if (len === undefined || len > 0) {
 				return [new vscode.Task(definition, "compile this file", "rscc", new vscode.ShellExecution("& '" + compilerPath + "' " + definition['args'].toString().replace(/,/g, ' ')), "$rscc")];
 			} else {
 				return [new vscode.Task(definition, "compile this file", "rscc", new vscode.ShellExecution('"' + compilerPath + '" ' + definition['args'].toString().replace(/,/g, ' ')), "$rscc")];
@@ -93,7 +93,7 @@ export async function activate(context: vscode.ExtensionContext) {
 
 			let defaultShell = vscode.workspace.getConfiguration('terminal').get<string>('integrated.shell.windows');
 			let len = defaultShell?.match(/powershell\.exe/)?.length;
-			if (len && len > 0) {
+			if (len === undefined || len > 0) {
 				return new vscode.Task(_task.definition, _task.name, _task.source, new vscode.ShellExecution("& '" + compilerPath + "' " + _task.definition['args'].toString().replace(/,/g, ' ')), "$rscc");
 			} else {
 				return new vscode.Task(_task.definition, _task.name, _task.source, new vscode.ShellExecution('"' + compilerPath + '" ' + _task.definition['args'].toString().replace(/,/g, ' ')), "$rscc");

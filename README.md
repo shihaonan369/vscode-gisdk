@@ -32,6 +32,9 @@ Users appreciate release notes as you update your extension.
 
 1. Fix a bug that cause task warning if there's no gisdk file opend.
 
+### 1.0.2
+1. Fix a bug which is powershell build failure.
+
 -----------------------------------------------------------------------------------------------------------
 
 ## Working with GISDK
